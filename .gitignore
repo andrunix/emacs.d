@@ -1,0 +1,7 @@
+persistent/
+elpa/
+url/cookies
+auto-save-list
+*.elc
+network-security.data
+
