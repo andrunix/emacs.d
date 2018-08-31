@@ -2,15 +2,10 @@
 
 (setq package-enable-at-startup nil)
 
-;; only at work do I have to use windows :(
-(if (equal system-type 'windows-nt)
-    ((setq package-archives
-      '(("melpa"        . "http://nexus.bcbst.com:8080/repository/melpa-proxy/")
-        ("org"          . "http://nexus.bcbst.com:8080/repository/elpa-proxy/"))))
-  (setq package-archives
-        '(("melpa"        . "http://melpa.org/packages/")
-          ("marmalade"    . "http://marmalade-repo.org/packages/")
-          ("org"          . "http://elpa.gnu.org/packages/"))))
+(if (eq system-type 'windows-nt)
+    (require 'core-windows)
+  (require 'core-nix))
+
 
 ;; Bootstrap use-package
 (unless (package-installed-p 'use-package)

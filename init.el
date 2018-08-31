@@ -93,6 +93,7 @@
 (require 'module-web)
 (require 'module-web-beautify)
 (require 'module-sanityinc-tomorrow)
+(require 'module-vue)
 ;; (require 'module-solarized)
 (require 'module-smart-mode-line)
 (require 'module-rjsx)
