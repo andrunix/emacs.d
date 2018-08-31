@@ -1,10 +1,16 @@
 (require 'package)
 
 (setq package-enable-at-startup nil)
-(setq package-archives
-      '(("melpa"        . "http://melpa.org/packages/")
-      ("marmalade" . "http://marmalade-repo.org/packages/")
-        ("org"          . "http://elpa.gnu.org/packages/")))
+
+;; only at work do I have to use windows :(
+(if (equal system-type 'windows-nt)
+    ((setq package-archives
+      '(("melpa"        . "http://nexus.bcbst.com:8080/repository/melpa-proxy/")
+        ("org"          . "http://nexus.bcbst.com:8080/repository/elpa-proxy/"))))
+  (setq package-archives
+        '(("melpa"        . "http://melpa.org/packages/")
+          ("marmalade"    . "http://marmalade-repo.org/packages/")
+          ("org"          . "http://elpa.gnu.org/packages/"))))
 
 ;; Bootstrap use-package
 (unless (package-installed-p 'use-package)
