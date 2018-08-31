@@ -5,7 +5,7 @@
       `((".*" . ,temporary-file-directory)))
 
 (setq bookmark-default-file
-      (concat persistent-dir "bookmarks.el"))
+      (concat persistent-dir "/bookmarks.el"))
 
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))

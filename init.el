@@ -77,9 +77,6 @@
 (require 'core-ui)
 (require 'core-paths)
 
-;; (when (eq system-type 'darwin)
-;;   (require 'core-osx))
-
 ;;--------------------------------------------------------------
 ;; Modules
 ;;--------------------------------------------------------------
@@ -88,6 +85,7 @@
 
 (require 'module-lang-css)
 (require 'module-less)
+(require 'module-org)
 (require 'module-markdown)
 (require 'module-projectile)
 (require 'module-web)
