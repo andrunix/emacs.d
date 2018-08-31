@@ -3,5 +3,7 @@ elpa/
 url/cookies
 auto-save-list
 *.elc
+*.eld
 network-security.data
+
 

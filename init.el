@@ -1,8 +1,103 @@
+;;---------------------------------------------------------------------
+;; Init
+;;---------------------------------------------------------------------
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
 (package-initialize)
 
-(require 'powerline)
-(powerline-default-theme)
+(defvar current-user
+  (getenv
+   (if (equal system-type 'windows-nt) "USERNAME" "USER")))
 
+(message "Powering up... Be patient, Master %s!" current-user)
+
+;; always load newest byte code
+(setq load-prefer-newer t)
+
+;; reduce the frequency of garbage collection by making it happen on
+;; each 50MB of allocated data (the default is on every 0.76MB)
+(setq gc-cons-threshold 50000000)
+
+;; warn when opening files bigger than 100mb
+(setq large-file-warning-threshold 100000000)
+
+(setq inhibit-startup-echo-area-message t)
+(setq inhibit-startup-screen t)
+
+(message "Setting load paths...")
+
+;;--------------------------------------------------------------
+;; Variables and Load Paths
+;;--------------------------------------------------------------
+(defvar emacs-dir (file-name-directory "~/.emacs.d/init.el")
+  "The root dir of the Emacs distribution.")
+
+(defvar core-dir (expand-file-name "core" emacs-dir)
+  "The home of core functionality.")
+
+(defvar modules-dir (expand-file-name "modules" emacs-dir)
+  "This directory houses all of the modules.")
+
+(defvar persistent-dir (expand-file-name "persistent" emacs-dir)
+  "This directory houses packages that are not yet available in ELPA (or MELPA).")
+
+(unless (file-exists-p persistent-dir)
+  (make-directory persistent-dir))
+
+;; This should go away. These things are probably on Melp by now. Review it.
+(defvar lisp-dir (expand-file-name "lisp" emacs-dir)
+  "This directory houses packages that I manually downloaded. Bad.")
+
+(defun add-subfolders-to-load-path (parent-dir)
+  "Add all level PARENT-DIR subdirs to the `load-path`."
+  (dolist (f (directory-files parent-dir))
+    (let ((name (expand-file-name f parent-dir)))
+      (when (and (file-directory-p name)
+                 (not (string-prefix-p "." f)))
+        (add-to-list 'load-path name)
+        (add-subfolders-to-load-path name)))))
+
+(add-to-list 'load-path core-dir)
+(add-to-list 'load-path modules-dir)
+(add-to-list 'load-path persistent-dir)
+(add-to-list 'load-path lisp-dir)
+
+;;--------------------------------------------------------------
+;; Core
+;;--------------------------------------------------------------
+
+(message "Loading core...")
+
+(require 'core-bootstrap)
+(require 'core-packages)
+(require 'core-defuns)
+(require 'core-ui)
+(require 'core-paths)
+
+;; (when (eq system-type 'darwin)
+;;   (require 'core-osx))
+
+;;--------------------------------------------------------------
+;; Modules
+;;--------------------------------------------------------------
+
+(message "Loading modules...")
+
+(require 'module-lang-css)
+(require 'module-less)
+(require 'module-markdown)
+(require 'module-projectile)
+(require 'module-web)
+(require 'module-web-beautify)
+(require 'module-sanityinc-tomorrow)
+;; (require 'module-solarized)
+(require 'module-smart-mode-line)
+(require 'module-rjsx)
+
+(message "Custom-set-variables...")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -11,219 +106,42 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
+ '(ansi-color-map (ansi-color-make-color-map) t)
  '(ansi-color-names-vector
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#657b83"])
- '(ansi-term-color-vector
-   [unspecified "#151718" "#CE4045" "#9FCA56" "#DCCD69" "#55B5DB" "#A074C4" "#55B5DB" "#D4D7D6"])
- '(blink-cursor-mode nil)
- '(compilation-message-face (quote default))
- '(cua-global-mark-cursor-color "#2aa198")
- '(cua-normal-cursor-color "#839496")
- '(cua-overwrite-cursor-color "#b58900")
- '(cua-read-only-cursor-color "#859900")
- '(cursor-type (quote box))
- '(custom-enabled-themes (quote (sanityinc-tomorrow-eighties)))
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-safe-themes
    (quote
-    ("628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "eecacf3fb8efc90e6f7478f6143fd168342bbfa261654a754c7d47761cec07c8" "ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" "12b7ed9b0e990f6d41827c343467d2a6c464094cbcc6d0844df32837b50655f9" "6c62b1cd715d26eb5aa53843ed9a54fc2b0d7c5e0f5118d4efafa13d7715c56e" "870a63a25a2756074e53e5ee28f3f890332ddc21f9e87d583c5387285e882099" "0aa12caf6127772c1a38f7966de8258e7a0651fb6f7220d0bbb3a0232fba967f" "94ba29363bfb7e06105f68d72b268f85981f7fba2ddef89331660033101eb5e5" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
- '(fci-rule-color "#073642")
- '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
- '(highlight-symbol-colors
-   (--map
-    (solarized-color-blend it "#002b36" 0.25)
-    (quote
-     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
- '(highlight-symbol-foreground-color "#93a1a1")
- '(highlight-tail-colors
-   (quote
-    (("#073642" . 0)
-     ("#546E00" . 20)
-     ("#00736F" . 30)
-     ("#00629D" . 50)
-     ("#7B6000" . 60)
-     ("#8B2C02" . 70)
-     ("#93115C" . 85)
-     ("#073642" . 100))))
- '(hl-bg-colors
-   (quote
-    ("#7B6000" "#8B2C02" "#990A1B" "#93115C" "#3F4D91" "#00629D" "#00736F" "#546E00")))
- '(hl-fg-colors
-   (quote
-    ("#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36" "#002b36")))
- '(indent-tabs-mode nil)
- '(inhibit-startup-screen t)
- '(js-indent-level 2)
- '(line-number-mode nil)
- '(magit-diff-use-overlays nil)
- '(menu-bar-mode nil)
- '(nrepl-message-colors
-   (quote
-    ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
- '(package-archives
-   (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
-     ("marmalade" . "https://marmalade-repo.org/packages/")
-     ("melpa" . "https://melpa.org/packages/"))))
- '(package-selected-packages
-   (quote
-    (color-theme-sanityinc-tomorrow smart-mode-line smart-mode-line-powerline-theme php-mode git-gutter git-gutter+ rjsx-mode fiplr web-beautify rust-mode vue-html-mode cargo flycheck-rust flymake-jshint flymake-jslint flymake-json flymake-rust flymake-sass flymake-shell flymd markdown-mode dracula-theme vue-mode)))
- '(pos-tip-background-color "#073642")
- '(pos-tip-foreground-color "#93a1a1")
- '(scroll-bar-mode nil)
- '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
- '(sml/mode-width
-   (if
-       (eq
-        (powerline-current-separator)
-        (quote arrow))
-       (quote right)
-     (quote full)))
- '(sml/pos-id-separator
-   (quote
-    (""
-     (:propertize " " face powerline-active1)
-     (:eval
-      (propertize " "
-                  (quote display)
-                  (funcall
-                   (intern
-                    (format "powerline-%s-%s"
-                            (powerline-current-separator)
-                            (car powerline-default-separator-dir)))
-                   (quote powerline-active1)
-                   (quote powerline-active2))))
-     (:propertize " " face powerline-active2))))
- '(sml/pos-minor-modes-separator
-   (quote
-    (""
-     (:propertize " " face powerline-active1)
-     (:eval
-      (propertize " "
-                  (quote display)
-                  (funcall
-                   (intern
-                    (format "powerline-%s-%s"
-                            (powerline-current-separator)
-                            (cdr powerline-default-separator-dir)))
-                   (quote powerline-active1)
-                   (quote sml/global))))
-     (:propertize " " face sml/global))))
- '(sml/pre-id-separator
-   (quote
-    (""
-     (:propertize " " face sml/global)
-     (:eval
-      (propertize " "
-                  (quote display)
-                  (funcall
-                   (intern
-                    (format "powerline-%s-%s"
-                            (powerline-current-separator)
-                            (car powerline-default-separator-dir)))
-                   (quote sml/global)
-                   (quote powerline-active1))))
-     (:propertize " " face powerline-active1))))
- '(sml/pre-minor-modes-separator
-   (quote
-    (""
-     (:propertize " " face powerline-active2)
-     (:eval
-      (propertize " "
-                  (quote display)
-                  (funcall
-                   (intern
-                    (format "powerline-%s-%s"
-                            (powerline-current-separator)
-                            (cdr powerline-default-separator-dir)))
-                   (quote powerline-active2)
-                   (quote powerline-active1))))
-     (:propertize " " face powerline-active1))))
- '(sml/pre-modes-separator (propertize " " (quote face) (quote sml/modes)))
- '(standard-indent 2)
- '(tab-width 2)
- '(term-default-bg-color "#002b36")
- '(term-default-fg-color "#839496")
- '(tool-bar-mode nil)
- '(vc-annotate-background nil)
+    ("b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "f71859eae71f7f795e734e6e7d178728525008a28c325913f564a42f74042c31" "13a654e817774e669cc17ee0705a3e1dfc62aedb01005a8abe2f8930a1d16d2e" "9a155066ec746201156bb39f7518c1828a73d67742e11271e4f24b7b178c4710" "5d1ffa34c265080cfb0ff4453551fc5eaefeb44fea8e7b62eb888a6ebd7c0682" "2ba0ea1d47b5ccb455e3e65f0dc6ec2da0e49ffb08cf5d9b883a6d89660bbf1e" "cb7d9f7e58434f463025ca091087ab12bb42d758165853193576caec329d72fc" "ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" "c0429683ff6ea4bed2f3d5a1c94717dff22d4f52ec1f5ebaf67dfab5d78787f1" "20e23cba00cf376ea6f20049022241c02a315547fc86df007544852c94ab44cb" "a2e7b508533d46b701ad3b055e7c708323fb110b6676a8be458a758dd8f24e27" "4154caa8409ff2eb6f74c913741420e7103b9ea26c3c7d1a5a16592d0d2f43e0" "0820d191ae80dcadc1802b3499f84c07a09803f2cb90b343678bdb03d225b26b" "43c1a8090ed19ab3c0b1490ce412f78f157d69a29828aa977dae941b994b4147" "0b6cb9b19138f9a859ad1b7f753958d8a36a464c6d10550119b2838cedf92171" "15348febfa2266c4def59a08ef2846f6032c0797f001d7b9148f30ace0d08bcf" "718fb4e505b6134cc0eafb7dad709be5ec1ba7a7e8102617d87d3109f56d9615" "eb34ed27768eeea1e423f8987b060e49829aac558fe0669b3de0227da67b661c" "afe5e2fb3b1e295e11c3c22e7d9ea7288a605c110363673987c8f6d05b1e9972" "5c64430cb8e12e2486cd9f74d4ce5172e00f8e633095d27edd212787a4225245" "5dc8ea509d300f9b751fce3d94d9885d264c5bda240e90e884d48601955b3f8c" "a81bc918eceaee124247648fc9682caddd713897d7fd1398856a5b61a592cb62" "94ce2a2fc1a2341590020a50e6d6916c81451c596313dda6453e41c526c1dc86" "63b7b8a45190b2e7362a975067bd76b55ae548c00e9088d12b4133eb0525a604" default)))
+ '(fci-rule-color "#383838")
+ '(hl-paren-background-colors (quote ("#2492db" "#95a5a6" nil)))
+ '(hl-paren-colors (quote ("#ecf0f1" "#ecf0f1" "#c0392b")))
+ '(hl-sexp-background-color "#efebe9")
+ '(ibuffer-deletion-face (quote diredp-deletion-file-name))
+ '(ibuffer-marked-face (quote diredp-flag-mark))
+ ;;'(package-selected-packages
+ ;;  (quote
+ ;;   (web-mode color-theme-sanityinc-tomorrow smart-mode-line challenger-deep-theme liso-theme rg neotree rjsx-mode vue-html-mode xah-css-mode xah-lookup dracula-theme lush-theme leuven-theme grandshell-theme flatland-black-theme flatland-theme flatui-dark-theme flatui-theme avk-emacs-themes mmm-mode vue-mode)))
+ '(vc-annotate-background "#ecf0f1")
  '(vc-annotate-color-map
    (quote
-    ((20 . "#dc322f")
-     (40 . "#c37300")
-     (60 . "#b97d00")
-     (80 . "#b58900")
-     (100 . "#a18700")
-     (120 . "#9b8700")
-     (140 . "#948700")
-     (160 . "#8d8700")
-     (180 . "#859900")
-     (200 . "#5a942c")
-     (220 . "#439b43")
-     (240 . "#2da159")
-     (260 . "#16a870")
-     (280 . "#2aa198")
-     (300 . "#009fa7")
-     (320 . "#0097b7")
-     (340 . "#008fc7")
-     (360 . "#268bd2"))))
- '(vc-annotate-very-old-color nil)
- '(weechat-color-list
-   (quote
-    (unspecified "#002b36" "#073642" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#839496" "#657b83")))
- '(xterm-color-names
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
- '(xterm-color-names-bright
-   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+    ((30 . "#e74c3c")
+     (60 . "#c0392b")
+     (90 . "#e67e22")
+     (120 . "#d35400")
+     (150 . "#f1c40f")
+     (180 . "#d98c10")
+     (210 . "#2ecc71")
+     (240 . "#27ae60")
+     (270 . "#1abc9c")
+     (300 . "#16a085")
+     (330 . "#2492db")
+     (360 . "#0a74b9"))))
+ '(vc-annotate-very-old-color "#0a74b9"))
 
-;; end file with newline
-'(require-final-newline t)
-
-;; Autocomplete mode
-(setq global-auto-complete-mode t)
-
-;; brackets matching
-(show-paren-mode 1)
-(setq-default show-paren-delay 0)
-
-;; use rjsx-mode in javascript files
-(add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))
-
-;; make backup to a designated dir, mirroring the full path
-(defun my-backup-file-name (fpath)
-  "Return a new file path of a given file path.
-If the new path's directores does not exist, create them."
-  (let* (
-         (backupRootDir "~/.emacs-backups/")
-         (filePath (replace-regexp-in-string "[A-Za-z]:"  "" fpath )) ;
-         (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") ))
-        )
-    (make-directory (file-name-directory backupFilePath) (file-name-directory backupFilePath))
-    backupFilePath
-    )
-  )
-
-(setq make-backup-file-name-function 'my-backup-file-name)
-
-(global-git-gutter+-mode)
-
-;; show line numbers in margin
-(global-linum-mode t)
-;; (global-line-number-mode t)
-
-(setq ring-bell-function 'ignore)
-
-;; fiplr config
-(setq fiplr-root-markers '(".git"))
-
-(setq fiplr-ignored-globs '((directories (".git"))
-                            (files ("*.jpg" "*.gif" "*.png" "*.zip"))))
-
-(global-set-key (kbd "C-x f") 'fiplr-find-file)
+(message  "Done with custom-set-variables...")
+(message "SML setup...")
 
 (sml/setup)
 
+
+(message "Ready to do thy bidding, Master %s!" current-user)
