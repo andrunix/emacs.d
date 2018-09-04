@@ -44,8 +44,13 @@
 
 (when (display-graphic-p)
   (set-frame-height (selected-frame) 40)
-  (when (member "Consolas" (font-family-list))
-    (add-to-list 'default-frame-alist '(font . "Consolas-10"))))
+  (when (member "Hack" (font-family-list))
+    (add-to-list 'default-frame-alist '(font . "Hack-10"))))
+;;    (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))))
+;;    (add-to-list 'default-frame-alist '(font . "Inconsolata-10"))))
+
+;;  (when (member "Consolas" (font-family-list))
+;;     (add-to-list 'default-frame-alist '(font . "Consolas-10"))))
 
 (global-set-key (kbd "<f2>") 'xah-new-empty-buffer)    ; F2
 
