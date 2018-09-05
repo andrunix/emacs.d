@@ -8,10 +8,9 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
-(setq cursor-type (quote box))
+;; (setq cursor-type (quote box))
+(setq cursor-type '(bar . 4))
 (setq ring-bell-function 'ignore)
-;; (setq inhibit-startup-screen t)
-;; prevent splash screen
 (setq inhibit-splash-screen t)
 
 (fset 'yes-or-no-p 'y-or-n-p)        ; enable y/n answers
@@ -42,13 +41,13 @@
 (setq explicit-bash.exe-args '("--login" "-i"))
 
 
+;; hack font comes from
+;; https://sourcefoundry.org/hack/
+
 (when (display-graphic-p)
   (set-frame-height (selected-frame) 40)
   (when (member "Hack" (font-family-list))
     (add-to-list 'default-frame-alist '(font . "Hack-10"))))
-;;    (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))))
-;;    (add-to-list 'default-frame-alist '(font . "Inconsolata-10"))))
-
 ;;  (when (member "Consolas" (font-family-list))
 ;;     (add-to-list 'default-frame-alist '(font . "Consolas-10"))))
 
