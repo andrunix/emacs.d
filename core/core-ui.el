@@ -8,8 +8,6 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
-;; (setq cursor-type (quote box))
-(setq cursor-type '(bar . 4))
 (setq ring-bell-function 'ignore)
 (setq inhibit-splash-screen t)
 
@@ -25,6 +23,8 @@
 (column-number-mode t)
 (show-paren-mode t)
 
+;; (setq cursor-type (quote box))
+(setq-default cursor-type '(bar . 4))
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq-default js-indent-mode 2)
