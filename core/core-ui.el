@@ -40,9 +40,14 @@
 (setq explicit-shell-file-name "C:/Program Files/git/bin/bash.exe")
 (setq explicit-bash.exe-args '("--login" "-i"))
 
+;; From Steve Yegge, https://sites.google.com/site/steveyegge2/effective-emacs
+;; Use (Ctrl-x + Ctrl-m) for Alt-x
+;; Also, (Ctrl-c + Ctrl-m) as a backup.
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
 
-;; hack font comes from
-;; https://sourcefoundry.org/hack/
+
+;; hack font comes from, https://sourcefoundry.org/hack/
 
 (when (display-graphic-p)
   (set-frame-height (selected-frame) 40)

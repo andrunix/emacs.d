@@ -55,7 +55,7 @@
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
                 ("n" "note" entry (file "~/code/amp/refile.org")
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("j" "Journal" entry (file+datetree "~/code/amp/diary.org")
+                ("j" "Journal" entry (file+olp+datetree "~/code/amp/diary.org")
                  "* %?\n%U\n" :clock-in t :clock-resume t)
                 ("w" "org-protocol" entry (file "~/code/amp/refile.org")
                  "* TODO Review %c\n%U\n" :immediate-finish t)
@@ -165,11 +165,11 @@
   )
 
 ;; Remove empty LOGBOOK drawers on clock out
-(defun bh/remove-empty-drawer-on-clock-out ()
-  (interactive)
-  (save-excursion
-    (beginning-of-line 0)
-    (org-remove-empty-drawer-at "LOGBOOK" (point))))
+;; (defun bh/remove-empty-drawer-on-clock-out ()
+;;   (interactive)
+;;   (save-excursion
+;;     (beginning-of-line 0)
+;;     (org-remove-empty-drawer-at "LOGBOOK" (point))))
 
 (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 
