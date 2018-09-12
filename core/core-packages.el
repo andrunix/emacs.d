@@ -1,3 +1,6 @@
+;; ibuffer
+(global-set-key (kbd "C-x b") 'ibuffer)
+
 
 ;; neotree
 (use-package neotree

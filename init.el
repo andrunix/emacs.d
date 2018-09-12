@@ -12,7 +12,7 @@
   (getenv
    (if (equal system-type 'windows-nt) "USERNAME" "USER")))
 
-(message "Powering up... Be patient, Master %s!" current-user)
+(message "Powering up... Be patient, %s!" current-user)
 
 ;; always load newest byte code
 (setq load-prefer-newer t)
@@ -74,6 +74,7 @@
 (require 'core-bootstrap)
 (require 'core-packages)
 (require 'core-defuns)
+(require 'core-ido)
 (require 'core-ui)
 (require 'core-paths)
 
@@ -99,5 +100,4 @@
 (message "SML setup...")
 (sml/setup)
 
-
-(message "Ready to do thy bidding, Master %s!" current-user)
+(message "Ready for action, %s!" current-user)

@@ -5,5 +5,7 @@ auto-save-list
 *.elc
 *.eld
 network-security.data
+ido.last
+
 
 
