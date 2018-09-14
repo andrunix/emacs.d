@@ -1,3 +1,4 @@
+
 ;;
 ;; So much to learn about org mode
 ;; Much (all) of this is coming from:
@@ -24,8 +25,8 @@
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
 
   (setq org-todo-keyword-faces
-        (quote (("TODO" :foreground "red" :weight bold)
-                ("NEXT" :foreground "blue" :weight bold)
+        (quote (("TODO" :foreground "gold1" :weight bold)
+                ("NEXT" :foreground "magenta" :weight bold)
                 ("DONE" :foreground "forest green" :weight bold)
                 ("WAITING" :foreground "orange" :weight bold)
                 ("HOLD" :foreground "magenta" :weight bold)
@@ -151,10 +152,10 @@
                                    (org-agenda-files :maxlevel . 9))))
 
   ;; Use full outline paths for refile targets - we file directly with IDO
-  ;;(setq org-refile-use-outline-path t)
+  (setq org-refile-use-outline-path t)
 
   ;; Targets complete directly with IDO
-  ;; (setq org-outline-path-complete-in-steps nil)
+  (setq org-outline-path-complete-in-steps nil)
 
   ;; Allow refile to create parent tasks with confirmation
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
