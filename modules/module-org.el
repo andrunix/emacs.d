@@ -1,3 +1,4 @@
+
 ;;
 ;; So much to learn about org mode
 ;; Much (all) of this is coming from:
@@ -24,8 +25,8 @@
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
 
   (setq org-todo-keyword-faces
-        (quote (("TODO" :foreground "red" :weight bold)
-                ("NEXT" :foreground "blue" :weight bold)
+        (quote (("TODO" :foreground "gold1" :weight bold)
+                ("NEXT" :foreground "magenta" :weight bold)
                 ("DONE" :foreground "forest green" :weight bold)
                 ("WAITING" :foreground "orange" :weight bold)
                 ("HOLD" :foreground "magenta" :weight bold)
@@ -170,17 +171,23 @@
                                         ; Use the current window for indirect buffer display
   (setq org-indirect-buffer-display 'current-window)
 
+  (defun bh/verify-refile-target ()
+    "Exclude todo keywords with a done state from refile targets"
+    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+  (setq org-refile-target-verify-function 'bh/verify-refile-target)
+
+
+  ;; Remove empty LOGBOOK drawers on clock out
+  (defun bh/remove-empty-drawer-on-clock-out ()
+    (interactive)
+    (save-excursion
+      (beginning-of-line 0)
+      (org-remove-empty-drawer-at "LOGBOOK" (point))))
+
+  (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+
   )
-
-;; Remove empty LOGBOOK drawers on clock out
-;; (defun bh/remove-empty-drawer-on-clock-out ()
-;;   (interactive)
-;;   (save-excursion
-;;     (beginning-of-line 0)
-;;     (org-remove-empty-drawer-at "LOGBOOK" (point))))
-
-;; (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
-
 
 (provide 'module-org)
 

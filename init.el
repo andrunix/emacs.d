@@ -95,7 +95,7 @@
 (require 'module-vue)
 ;; (require 'module-solarized)
 (require 'module-smart-mode-line)
-(require 'module-rjsx)
+;; (require 'module-rjsx)
 
 (message "SML setup...")
 (sml/setup)
