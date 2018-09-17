@@ -16,8 +16,7 @@
          )
   :mode ("\\.org\\'" . org-mode)
   :config
-  (setq org-agenda-files '("~/code/amp" ; personal stuff - empty at work
-                           "~/code/org" ; shared stuff
+  (setq org-agenda-files '("~/Dropbox/org" ; personal stuff - empty at work
                            "~/code/bcbst")) ; work stuff
 
   (setq org-todo-keywords

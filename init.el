@@ -91,9 +91,10 @@
 (require 'module-projectile)
 (require 'module-web)
 (require 'module-web-beautify)
-(require 'module-sanityinc-tomorrow)
-(require 'module-vue)
+;; (require 'module-sanityinc-tomorrow)
 ;; (require 'module-solarized)
+(require 'module-leuven)
+(require 'module-vue)
 (require 'module-smart-mode-line)
 ;; (require 'module-rjsx)
 
