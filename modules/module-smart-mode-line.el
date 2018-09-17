@@ -2,7 +2,7 @@
   :ensure t
   :config
   (progn
-    (setq sml/theme 'respectful)
+    (setq sml/theme 'light)
     (setq sml/name-width 40)
     (setq sml/mode-width 'full)
     (set-face-attribute 'mode-line nil
