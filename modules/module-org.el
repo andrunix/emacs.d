@@ -1,4 +1,5 @@
 
+
 ;;
 ;; So much to learn about org mode
 ;; Much (all) of this is coming from:
@@ -45,24 +46,24 @@
                 ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
                 ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
-  (setq org-directory "~/code/org")
-  (setq org-default-notes-file "~/code/org/refile.org")
+  (setq org-directory "~/Dropbox/org")
+  (setq org-default-notes-file "~/Dropbox/org/refile.org")
 
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings
   (setq org-capture-templates
-        (quote (("t" "todo" entry (file "~/code/org/refile.org")
+        (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
                  "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("r" "respond" entry (file "~/code/org/refile.org")
+                ("r" "respond" entry (file "~/Dropbox/org/refile.org")
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-                ("n" "note" entry (file "~/code/org/refile.org")
+                ("n" "note" entry (file "~/Dropbox/org/refile.org")
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("j" "Journal" entry (file+olp+datetree "~/code/org/diary.org")
+                ("j" "Journal" entry (file+olp+datetree "~/Dropbox/org/diary.org")
                  "* %?\n%U\n" :clock-in t :clock-resume t)
-                ("m" "Meeting" entry (file "~/code/org/refile.org")
+                ("m" "Meeting" entry (file "~/Dropbox/org/refile.org")
                  "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                ("p" "Phone call" entry (file "~/code/org/refile.org")
+                ("p" "Phone call" entry (file "~/Dropbox/org/refile.org")
                  "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                ("h" "Habit" entry (file "~/code/org/refile.org")
+                ("h" "Habit" entry (file "~/Dropbox/org/refile.org")
                  "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))  
 
   ;; Do not dim blocked tasks
@@ -182,10 +183,14 @@
     (interactive)
     (save-excursion
       (beginning-of-line 0)
-      (org-remove-empty-drawer-at "LOGBOOK" (point))))
+      (org-remove-empty-drawer-at (point))))
 
   (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 
+  (set-face-attribute 'org-agenda-date nil :height 1.1)
+  (set-face-attribute 'org-agenda-date-weekend nil :height 1)
+  (set-face-attribute 'org-agenda-date-today nil :height 1.2)
+  (set-face-attribute 'org-agenda-structure nil :height 1.1)
   )
 
 (provide 'module-org)
