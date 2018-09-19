@@ -1,4 +1,5 @@
 
+
 ;;
 ;; So much to learn about org mode
 ;; Much (all) of this is coming from:
@@ -182,10 +183,14 @@
     (interactive)
     (save-excursion
       (beginning-of-line 0)
-      (org-remove-empty-drawer-at "LOGBOOK" (point))))
+      (org-remove-empty-drawer-at (point))))
 
   (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 
+  (set-face-attribute 'org-agenda-date nil :height 1.1)
+  (set-face-attribute 'org-agenda-date-weekend nil :height 1)
+  (set-face-attribute 'org-agenda-date-today nil :height 1.2)
+  (set-face-attribute 'org-agenda-structure nil :height 1.1)
   )
 
 (provide 'module-org)
