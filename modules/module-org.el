@@ -1,5 +1,3 @@
-
-
 ;;
 ;; So much to learn about org mode
 ;; Much (all) of this is coming from:
@@ -191,7 +189,11 @@
   (set-face-attribute 'org-agenda-date-weekend nil :height 1)
   (set-face-attribute 'org-agenda-date-today nil :height 1.2)
   (set-face-attribute 'org-agenda-structure nil :height 1.1)
+
   )
+
+(use-package ox-clip
+              :ensure t)
 
 (provide 'module-org)
 
