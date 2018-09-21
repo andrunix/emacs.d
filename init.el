@@ -96,6 +96,8 @@
 (require 'module-projectile)
 (require 'module-web)
 (require 'module-web-beautify)
+(require 'module-vue)
+(require 'module-php)
 ;; (require 'module-sanityinc-tomorrow)
 ;; (require 'module-solarized)
 (require 'module-leuven)
@@ -108,3 +110,4 @@
 (sml/setup)
 
 (message "Ready for action, %s!" current-user)
+
