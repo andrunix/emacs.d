@@ -5,7 +5,7 @@
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+
 (package-initialize)
 
 (defvar current-user
@@ -46,6 +46,11 @@
 
 (unless (file-exists-p persistent-dir)
   (make-directory persistent-dir))
+
+(defvar temporary-file-directory (expand-file-name "temp" emacs-dir)
+  "This is where temporary files should be stored.")
+(unless (file-exists-p temporary-file-directory)
+  (make-directory temporary-file-directory))
 
 ;; This should go away. These things are probably on Melp by now. Review it.
 (defvar lisp-dir (expand-file-name "lisp" emacs-dir)

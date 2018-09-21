@@ -1,3 +1,4 @@
+
 ;; ibuffer
 (global-set-key (kbd "C-x b") 'ibuffer)
 
@@ -9,8 +10,8 @@
 ;; (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 
-;; ripgrep
-;; taken directly from Mark Feller
+;; ripgrep - lots to learn from the page on how to use
+;; https://github.com/dajva/rg.el
 (use-package rg
   :config (rg-enable-default-bindings (kbd "M-s")))
 
