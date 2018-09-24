@@ -23,7 +23,7 @@
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
 
   (setq org-todo-keyword-faces
-        (quote (("TODO" :foreground "gold1" :weight bold)
+        (quote (("TODO" :foreground "SteelBlue4" :weight bold)
                 ("NEXT" :foreground "magenta" :weight bold)
                 ("DONE" :foreground "forest green" :weight bold)
                 ("WAITING" :foreground "orange" :weight bold)
