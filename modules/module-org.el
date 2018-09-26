@@ -27,7 +27,7 @@
                 ("NEXT" :foreground "magenta" :weight bold)
                 ("DONE" :foreground "forest green" :weight bold)
                 ("WAITING" :foreground "orange" :weight bold)
-                ("HOLD" :foreground "magenta" :weight bold)
+                ("HOLD" :foreground "MediumPurple4" :weight bold)
                 ("CANCELLED" :foreground "forest green" :weight bold)
                 ("MEETING" :foreground "forest green" :weight bold)
                 ("PHONE" :foreground "forest green" :weight bold))))  
@@ -185,6 +185,7 @@
 
   (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 
+  (set-face-attribute 'org-level-1 nil :height 1.2)
   (set-face-attribute 'org-agenda-date nil :height 1.1)
   (set-face-attribute 'org-agenda-date-weekend nil :height 1)
   (set-face-attribute 'org-agenda-date-today nil :height 1.2)
