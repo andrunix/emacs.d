@@ -24,7 +24,7 @@
 (show-paren-mode t)
 
 ;; (setq cursor-type (quote box))
-(setq-default cursor-type '(bar . 4))
+(setq-default cursor-type '(bar . 8))
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq-default js-indent-mode 2)
