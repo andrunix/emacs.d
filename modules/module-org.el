@@ -3,6 +3,8 @@
 ;; Much (all) of this is coming from:
 ;; http://doc.norang.ca/org-mode.html#GettingStarted
 ;;
+;; also this one:
+;; https://orgmode.org/worg/org-tutorials/orgtutorial_dto.html
 
 (use-package org
   :init
@@ -15,8 +17,14 @@
          )
   :mode ("\\.org\\'" . org-mode)
   :config
-  (setq org-agenda-files '("~/Dropbox/org" ; personal stuff - empty at work
-                           "~/code/bcbst")) ; work stuff
+  
+  (defvar personal-org-dir "~/Dropbox/org/"
+    "Where I bee keeping my personal org files")
+  ;; (defvar work-org-dir "~/code/bcbst/"
+  (defvar work-org-dir "~/code/org/"
+    "Where I keep work crap")
+  (setq org-agenda-files (list personal-org-dir
+                          work-org-dir))
 
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
@@ -44,24 +52,27 @@
                 ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
                 ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
-  (setq org-directory "~/Dropbox/org")
-  (setq org-default-notes-file "~/Dropbox/org/refile.org")
+  (setq org-directory personal-org-dir)
+
+  (defvar refile-org-file (concat personal-org-dir "refile.org"))
+  (setq org-default-notes-file refile-org-file)
+  (defvar diary-org-file (concat personal-org-dir "diary.org"))
 
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings
   (setq org-capture-templates
-        (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
+        (quote (("t" "todo" entry (file refile-org-file)
                  "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("r" "respond" entry (file "~/Dropbox/org/refile.org")
+                ("r" "respond" entry (file refile-org-file)
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-                ("n" "note" entry (file "~/Dropbox/org/refile.org")
+                ("n" "note" entry (file refile-org-file)
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("j" "Journal" entry (file+olp+datetree "~/Dropbox/org/diary.org")
+                ("j" "Journal" entry (file+olp+datetree diary-org-file)
                  "* %?\n%U\n" :clock-in t :clock-resume t)
-                ("m" "Meeting" entry (file "~/Dropbox/org/refile.org")
+                ("m" "Meeting" entry (file refile-org-file)
                  "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                ("p" "Phone call" entry (file "~/Dropbox/org/refile.org")
+                ("p" "Phone call" entry (file refile-org-file)
                  "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                ("h" "Habit" entry (file "~/Dropbox/org/refile.org")
+                ("h" "Habit" entry (file refile-org-file)
                  "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))  
 
   ;; Do not dim blocked tasks

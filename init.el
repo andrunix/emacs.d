@@ -101,6 +101,7 @@
 (require 'module-sanityinc-tomorrow)
 ;; (require 'module-solarized)
 ;; (require 'module-leuven)
+(require 'module-dakrone)
 (require 'module-vue)
 (require 'module-smart-mode-line)
 ;; (require 'module-rjsx)

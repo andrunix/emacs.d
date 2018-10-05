@@ -52,7 +52,7 @@
 (when (display-graphic-p)
   (set-frame-height (selected-frame) 40)
   (when (member "Hack" (font-family-list))
-    (add-to-list 'default-frame-alist '(font . "Hack-10"))))
+    (add-to-list 'default-frame-alist '(font . "Hack-9"))))
 ;;  (when (member "Consolas" (font-family-list))
 ;;     (add-to-list 'default-frame-alist '(font . "Consolas-10"))))
 
