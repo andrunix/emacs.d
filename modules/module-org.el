@@ -1,3 +1,4 @@
+
 ;;
 ;; So much to learn about org mode
 ;; Much (all) of this is coming from:
@@ -19,7 +20,7 @@
   :config
   
   (defvar personal-org-dir "~/Dropbox/org/"
-    "Where I bee keeping my personal org files")
+    "Where I keep my personal org files")
   ;; (defvar work-org-dir "~/code/bcbst/"
   (defvar work-org-dir "~/code/org/"
     "Where I keep work crap")
@@ -183,7 +184,6 @@
   (defun bh/verify-refile-target ()
     "Exclude todo keywords with a done state from refile targets"
     (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
 
 
@@ -194,18 +194,45 @@
       (beginning-of-line 0)
       (org-remove-empty-drawer-at (point))))
 
+  (defun formatted-copy ()
+    "Export region to HTML, and copy it to the clipboard."
+    (interactive)
+    (save-window-excursion
+      (shell-command-on-region
+       (point-min)
+       (point-max)
+       "pandoc -f org -t rtf ")) 
+    )
+  
+  (defvar bh/hide-scheduled-and-waiting-next-tasks t)
+  
+  (defun bh/prepare-meeting-notes ()
+    "Prepare meeting notes for email
+   Take selected region and convert tabs to spaces, mark TODOs with leading >>>, and copy to kill ring for pasting"
+    (interactive)
+    (let (prefix)
+      (save-excursion
+        (save-restriction
+          (narrow-to-region (region-beginning) (region-end))
+          (untabify (point-min) (point-max))
+          (goto-char (point-min))
+          (while (re-search-forward "^\\( *-\\\) \\(TODO\\|DONE\\): " (point-max) t)
+            (replace-match (concat (make-string (length (match-string 1)) ?>) " " (match-string 2) ": ")))
+          (goto-char (point-min))
+          (kill-ring-save (point-min) (point-max))))))  
+
   (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
-
-  (set-face-attribute 'org-level-1 nil :height 1.2)
-  (set-face-attribute 'org-agenda-date nil :height 1.1)
-  (set-face-attribute 'org-agenda-date-weekend nil :height 1)
-  (set-face-attribute 'org-agenda-date-today nil :height 1.2)
-  (set-face-attribute 'org-agenda-structure nil :height 1.1)
-
   )
 
 (use-package ox-clip
-              :ensure t)
+  :ensure t)
+
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+
+(global-auto-revert-mode t)
 
 (provide 'module-org)
 
