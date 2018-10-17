@@ -98,6 +98,7 @@
 ;; (require 'module-web)
 (require 'module-web-beautify)
 (require 'module-php)
+
 ;; Obviously I can't decide on a theme...
 ;; (require 'module-sanityinc-tomorrow)
 ;; (require 'module-solarized)
