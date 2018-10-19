@@ -21,7 +21,6 @@
   
   (defvar personal-org-dir "~/Dropbox/org/"
     "Where I keep my personal org files")
-  ;; (defvar work-org-dir "~/code/bcbst/"
   (defvar work-org-dir "~/code/org/"
     "Where I keep work crap")
   (setq org-agenda-files (list personal-org-dir
