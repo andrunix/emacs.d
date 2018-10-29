@@ -103,8 +103,9 @@
 ;; (require 'module-sanityinc-tomorrow)
 ;; (require 'module-solarized)
 ;; (require 'module-leuven)
-;; (require 'module-dakrone)
-(require 'module-flatui)
+(require 'module-dakrone)
+;; (require 'module-flatui)
+;; (require 'module-hickey)
 
 (require 'module-vue)
 (require 'module-smart-mode-line)
