@@ -7,5 +7,5 @@
                solarized-use-variable-pitch nil
                solarized-distinct-fringe-background nil)))
 
-(load-theme 'solarized-light)
+(load-theme 'solarized-dark)
 (provide 'module-solarized)

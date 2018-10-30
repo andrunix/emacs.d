@@ -101,9 +101,9 @@
 
 ;; Obviously I can't decide on a theme...
 ;; (require 'module-sanityinc-tomorrow)
-;; (require 'module-solarized)
+(require 'module-solarized)
 ;; (require 'module-leuven)
-(require 'module-dakrone)
+;; (require 'module-dakrone)
 ;; (require 'module-flatui)
 ;; (require 'module-hickey)
 
