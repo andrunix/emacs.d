@@ -6,7 +6,7 @@ auto-save-list
 *.eld
 network-security.data
 ido.last
-
+eshell
 
 
 projectile.cache
