@@ -14,17 +14,16 @@
          ("<f12>" . org-agenda)
          ("C-c c" . org-capture)
          ("C-c l" . org-store-link)
-         ("C-c b" . org-iswitchb)
-         )
+         ("C-c b" . org-iswitchb))
   :mode ("\\.org\\'" . org-mode)
   :config
   
-  (defvar personal-org-dir "~/Dropbox/org/"
-    "Where I keep my personal org files")
+  ;;(defvar personal-org-dir "~/Dropbox/org/"
+  ;;  "Where I keep my personal org files")
   (defvar work-org-dir "~/code/org/"
     "Where I keep work crap")
-  (setq org-agenda-files (list personal-org-dir
-                          work-org-dir))
+  (setq org-agenda-files (list work-org-dir))
+  ;;                        work-org-dir))
 
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
@@ -52,11 +51,11 @@
                 ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
                 ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
-  (setq org-directory personal-org-dir)
+  (setq org-directory work-org-dir)
 
-  (defvar refile-org-file (concat personal-org-dir "refile.org"))
+  (defvar refile-org-file (concat work-org-dir "refile.org"))
   (setq org-default-notes-file refile-org-file)
-  (defvar diary-org-file (concat personal-org-dir "diary.org"))
+  (defvar diary-org-file (concat work-org-dir "diary.org"))
 
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings
   (setq org-capture-templates
@@ -205,7 +204,7 @@
   
   (defvar bh/hide-scheduled-and-waiting-next-tasks t)
   
-  (defun bh/prepare-meeting-notes ()
+  (defun prepare-meeting-notes ()
     "Prepare meeting notes for email
    Take selected region and convert tabs to spaces, mark TODOs with leading >>>, and copy to kill ring for pasting"
     (interactive)
@@ -229,7 +228,6 @@
 (use-package org-bullets
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
 
 (global-auto-revert-mode t)
 
