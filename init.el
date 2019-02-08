@@ -100,13 +100,13 @@
 (require 'module-php)
 
 ;; Obviously I can't decide on a theme...
-;; (require 'module-sanityinc-tomorrow)
+(require 'module-sanityinc-tomorrow)
 ;; (require 'module-solarized)
 ;; (require 'module-leuven)
 ;; (require 'module-dakrone)
 ;; (require 'module-flatui)
 ;; (require 'module-hickey)
-(require 'module-base16)
+;; (require 'module-base16)
 
 (require 'module-vue)
 (require 'module-smart-mode-line)
