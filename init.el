@@ -112,9 +112,12 @@
 (require 'module-smart-mode-line)
 ;; (require 'module-rjsx)
 (require 'module-rest)
+(require 'module-pug)
 
 (message "SML setup...")
 (sml/setup)
 
 (message "Ready for action, %s!" current-user)
 
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
