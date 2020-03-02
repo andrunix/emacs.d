@@ -113,6 +113,7 @@
 (require 'module-smart-mode-line)
 ;; (require 'module-rjsx)
 (require 'module-rest)
+(require 'module-pug)
 
 (require 'module-mu4e)
 
@@ -121,3 +122,5 @@
 
 (message "Ready for action, %s!" current-user)
 
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)

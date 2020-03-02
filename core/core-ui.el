@@ -58,6 +58,13 @@
    ;; (add-to-list 'default-frame-alist '(font . "Hack-9"))))
 ;;  (when (member "Consolas" (font-family-list))
 ;;     (add-to-list 'default-frame-alist '(font . "Consolas-10"))))
+  ;; (when (member "ShureTechMono NF" (font-family-list))
+  ;;   (add-to-list 'default-frame-alist '(font . "ShureTechMono NF-10"))))
+  
+  ;; (when (member "Hack" (font-family-list))
+  ;;  (add-to-list 'default-frame-alist '(font . "Hack-9"))))
+  ;; (when (member "Consolas" (font-family-list))
+  ;;  (add-to-list 'default-frame-alist '(font . "Consolas-10"))))
 
 (global-set-key (kbd "<f2>") 'xah-new-empty-buffer)    ; F2
 
