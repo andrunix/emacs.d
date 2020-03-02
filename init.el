@@ -98,20 +98,23 @@
 ;; (require 'module-web)
 (require 'module-web-beautify)
 (require 'module-php)
+(require 'module-yaml)
 
 ;; Obviously I can't decide on a theme...
-;; (require 'module-sanityinc-tomorrow)
+(require 'module-sanityinc-tomorrow)
 ;; (require 'module-solarized)
 ;; (require 'module-leuven)
 ;; (require 'module-dakrone)
 ;; (require 'module-flatui)
 ;; (require 'module-hickey)
-(require 'module-base16)
+;; (require 'module-base16)
 
 (require 'module-vue)
 (require 'module-smart-mode-line)
 ;; (require 'module-rjsx)
 (require 'module-rest)
+
+(require 'module-mu4e)
 
 (message "SML setup...")
 (sml/setup)

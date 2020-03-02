@@ -37,8 +37,8 @@
 (prefer-coding-system 'utf-8)
 
 ;; Run Git Bash
-(setq explicit-shell-file-name "C:/Program Files/git/bin/bash.exe")
-(setq explicit-bash.exe-args '("--login" "-i"))
+;; (setq explicit-shell-file-name "C:/Program Files/git/bin/bash.exe")
+;; (setq explicit-bash.exe-args '("--login" "-i"))
 
 ;; From Steve Yegge, https://sites.google.com/site/steveyegge2/effective-emacs
 ;; Use (Ctrl-x + Ctrl-m) for Alt-x
@@ -51,8 +51,11 @@
 
 (when (display-graphic-p)
   (set-frame-height (selected-frame) 40)
-  (when (member "Hack" (font-family-list))
-    (add-to-list 'default-frame-alist '(font . "Hack-9"))))
+  (when (member "ShureTechMono Nerd Font Mono" (font-family-list))
+    (add-to-list 'default-frame-alist '(font . "ShureTechMono Nerd Font Mono-11"))))
+
+  ;;(when (member "Hack" (font-family-list))
+   ;; (add-to-list 'default-frame-alist '(font . "Hack-9"))))
 ;;  (when (member "Consolas" (font-family-list))
 ;;     (add-to-list 'default-frame-alist '(font . "Consolas-10"))))
 
